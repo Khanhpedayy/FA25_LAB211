@@ -15,8 +15,8 @@ public class Util {
      * @return a valid integer in the range [min, max]
      * @throws InvalidInputException if the input is invalid or out of range
      */
-    public int getIntInRange(String msg, int min, int max) throws InvalidInputException { // Validate input integer in
-                                                                                          // range
+    public int getIntInRange(String msg, int min, int max) { // Validate input integer in
+                                                             // range
         Scanner sc = new Scanner(System.in);
         int result = 0;
         while (true) {
@@ -28,11 +28,14 @@ public class Util {
             try {
                 result = Integer.parseInt(input);
                 if (result < min || result > max) {
-                    throw new InvalidInputException(InvalidInputException.RANGE_ERROR);
+                    System.err.println(
+                            "Input is out of range. Please enter a value between " + min + " and " + max + ".");
+                    continue;
                 }
                 return result;
             } catch (NumberFormatException e) {
-                throw new InvalidInputException(InvalidInputException.FORMAT_ERROR);
+                System.err.println("Invalid input format. Please enter a valid integer.");
+                continue;
             }
         }
     }
@@ -57,7 +60,8 @@ public class Util {
      * @param arr  the array to fill with random integers
      * @return the array filled with random integers
      */
-    public int[] Randomizer(int size, int[] arr) { // Generate an array of random integers in input size
+    public int[] Randomizer(int size) { // Generate an array of random integers in input size
+        int[] arr = new int[size];
         Random r = new Random();
         for (int i = 0; i < size; i++) {
             arr[i] = r.nextInt(size); // Random numbers between 0 and size - 1
@@ -70,8 +74,9 @@ public class Util {
      *
      * @param arr the array to display
      */
-    public void displayArray(int[] arr) { // Display the array
+    public void displayArray(String msg, int[] arr) { // Display the array
         int size = arr.length;
+        System.out.print(msg);
         System.out.print("[");
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
@@ -80,7 +85,7 @@ public class Util {
                 System.out.print(arr[i]);
             }
         }
-        System.out.print("]");
+        System.out.println("]");
     }
 
     /**
