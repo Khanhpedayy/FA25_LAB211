@@ -1,40 +1,21 @@
 package P0010;
 
 public class main {
+
     public static void main(String[] args) {
         Utility util = new Utility();
-        int size = 0;
-        while (true) {
-            try {
-                size = util.getIntInRange("Enter number of elements in the array: ", 1, Integer.MAX_VALUE);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        int target = 0;
-        while (true) {
-            try {
-                target = util.getIntInRange("Enter the number to search for: ", 0, Integer.MAX_VALUE);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        int[] arr = new int[size];
-        util.randomizer(size, arr);
-        System.out.println("The array: ");
-        util.displayArray(arr);
-        int[] found = util.findAllIndices(target, arr);
-        if (found.length > 0) {
-            System.out.println("Number " + target + " found at indices: ");
-            for (int index : found) {
-                System.out.println(index + " ");
-            }
-            System.out.println();
-        } else {
-            System.out.println("Number " + target + " not found in the array.");
-        }
+        Validator valid = new Validator();
+        // Step 1: Get the size of the array from the user
+        int size = valid.getIntInRange("Enter the size of array:", 1, Integer.MAX_VALUE);
+        // Step 2: Generate a random array of the given size
+        int[] arr = util.Randomizer(size);
+        // Step 3: Display the generated array
+        util.displayArray("The array: ", arr);
+        // Step 4: Get the target number to search for
+        int target = valid.getIntInRange("Enter the number to search:", 0, size - 1);
+        // Step 5: Perform linear search to find the target
+        int[] foundIndices = util.findAllIndices(target, arr);
+        // Step 6: Display the search results
+        util.displaySearchResults(target, foundIndices);
     }
-
 }
